@@ -41,6 +41,7 @@ group :development, :test do
   gem  'rspec-rails'
   gem 'annotate', '~> 2.4.1.beta'
   gem 'byebug', platform: :mri
+  gem 'factory_girl_rails'
 end
 
 group :development do
