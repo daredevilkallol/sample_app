@@ -8,7 +8,7 @@ describe "User pages" do
 		let(:user) { FactoryGirl.create(:user) }
 		before { visit user_path(user) }
 		it { should have_selector('h1', text: user.name) }
-		it { should has_selector?('title', text: user.name) }
+		it { has_selector?('title', text: user.name) }
 	end
 	
 	describe "signup page" do
@@ -24,7 +24,7 @@ describe "User pages" do
 
 		describe "with invalid information" do
 			it "should not create a user" do
-				expect { click_button submit }.not_to change(User, :count)
+				expect { first(:button, submit).click }.not_to change(User, :count)
 			end
 		end
 	
@@ -38,6 +38,15 @@ describe "User pages" do
 
 			it "should create a user" do
 				expect { click_button submit }.to change(User, :count).by(1)
+			end
+
+			describe "after saving the user" do
+				it { should have_link('Sign out') }
+			end
+
+			describe "followed by signout" do
+				before { click_link "Sign out" }
+				it { should have_link('Sign in') }
 			end
 		end
 	end
