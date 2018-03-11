@@ -15,7 +15,7 @@ describe "Authentication" do
 		before { visit signin_path }
 		
 		describe "with invalid information" do
-			before { first(:button, "Sign in").click }
+			before { first(:button, "Sign in").click } #check with pdf ... not matching
 			it { has_selector?('title', text: 'Sign in') }
 			it { should has_selector?('div.alert.alert-danger', text: 'Invalid') }
 
@@ -28,12 +28,12 @@ describe "Authentication" do
 		describe "with valid information" do
 			let(:user) { FactoryGirl.create(:user) }
 			subject { sign_in user }
-			it{ has_selector?('title', text: user.name) }
-			it{ has_link?('Users', href: users_path) }
-			it{ has_link?('Profile', href: user_path(user)) }
-			it{ has_link?('Settings', href: edit_user_path(user)) }
-			it{ has_link?('Sign out', href: signout_path) }
-			it{ should_not has_link?('Sign in', href: signin_path) }
+			it { has_selector?('title', text: user.name) }
+			it { has_link?('Users', href: users_path) }
+			it { has_link?('Profile', href: user_path(user)) }
+			it { has_link?('Settings', href: edit_user_path(user)) }
+			it { has_link?('Sign out', href: signout_path) }
+			it { should_not has_link?('Sign in', href: signin_path) }
 
 			before do
 				fill_in "Email", with: user.email
